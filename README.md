@@ -56,14 +56,15 @@ Two Random Forest models form the pricing pipeline:
 
 ## What I Learned
 
-- **Frequency-severity modeling**: How actuarial pricing splits risk into "how often" and "how much," and why modeling these separately (rather than predicting claim cost directly) produces more stable, interpretable results — especially with highly imbalanced, zero-inflated claims data.
-- **SQL + Python integration**: Writing SQL views to aggregate and join relational data (via SQLAlchemy/PostgreSQL) before pulling it into pandas, instead of doing all transformations in-memory.
-- **Handling imbalanced classification**: Using `class_weight='balanced'` in the Random Forest classifier to address the fact that most policies have no claim.
-- **Outlier treatment**: Capping claim severity at the 95th percentile to prevent a small number of extreme claims from distorting the severity model.
-- **Feature engineering choices**: Deciding between one-hot encoding (nominal categories like Region/VehBrand) and ordinal encoding (Area, which has a natural order), and seeing how that choice affects model input.
-- **Model evaluation beyond accuracy**: Using MAE/RMSE to judge severity predictions, and comparing aggregate predicted premium vs. actual claims to sanity-check the model at a portfolio level, not just per-row error.
-- **Feature importance for explainability**: Extracting and visualizing which features (Exposure, DrivAge, Density) actually drive claim probability — important in insurance, where models often need to be explainable to regulators/stakeholders, not just accurate.
-
+-**pandas**: data loading, merging, groupby aggregations, filtering, and get_dummies for one-hot encoding
+-**SQLAlchemy**: connecting Python to PostgreSQL, pushing DataFrames to SQL with to_sql, and querying with read_sql
+-**SQL**: writing views with CREATE OR REPLACE VIEW, CTEs (WITH), aggregation, and LEFT JOIN
+-**scikit-learn**: train_test_split, RandomForestClassifier, RandomForestRegressor, and evaluation metrics (mean_absolute_error, mean_squared_error)
+-**matplotlib**: bar charts, histograms, axis labeling, and rotated tick labels for readability
+-**numpy**: percentile calculations for outlier capping
+-**Python**: pandas, numpy, scikit-learn, matplotlib
+-**Database**: PostgreSQL (via SQLAlchemy)
+-**Modeling**: Random Forest (classification + regression)
 
 
 - **Python**: pandas, numpy, scikit-learn, matplotlib
