@@ -24,8 +24,16 @@ This project models both components separately and combines them into a **pure p
 
 - Distribution of claim amounts
 - Claim frequency by vehicle brand (highest: **B12**)
+
+  ![Claim Frequency by Vehicle Brand](images/claim_freq_by_vehicle_brand.png)
+
 - Average claim severity by region (highest: **Rhône-Alpes**)
+
+  ![Average Claim Severity by Region](images/claim_severity_by_region.png)
+
 - Claim frequency by region
+
+  ![Claim Frequency by Region](images/claim_frequency_by_region.png)
 
 ## Modeling
 
@@ -42,9 +50,21 @@ Two Random Forest models form the pricing pipeline:
 
 - Evaluated using **MAE** and **RMSE** against actual claim amounts on the test set
 - Predicted total premium compared against total actual claims, with an adjustment ratio applied to calibrate overall premium levels
-- Feature importance analysis identifies the top risk factors driving claim probability
+- Feature importance analysis identifies the top risk factors driving claim probability — **Exposure**, **DrivAge**, and **Density** rank highest
 
-## Tech Stack
+  ![Top 10 Factors Influencing Claim Probability](images/feature_importance.png)
+
+## What I Learned
+
+- **Frequency-severity modeling**: How actuarial pricing splits risk into "how often" and "how much," and why modeling these separately (rather than predicting claim cost directly) produces more stable, interpretable results — especially with highly imbalanced, zero-inflated claims data.
+- **SQL + Python integration**: Writing SQL views to aggregate and join relational data (via SQLAlchemy/PostgreSQL) before pulling it into pandas, instead of doing all transformations in-memory.
+- **Handling imbalanced classification**: Using `class_weight='balanced'` in the Random Forest classifier to address the fact that most policies have no claim.
+- **Outlier treatment**: Capping claim severity at the 95th percentile to prevent a small number of extreme claims from distorting the severity model.
+- **Feature engineering choices**: Deciding between one-hot encoding (nominal categories like Region/VehBrand) and ordinal encoding (Area, which has a natural order), and seeing how that choice affects model input.
+- **Model evaluation beyond accuracy**: Using MAE/RMSE to judge severity predictions, and comparing aggregate predicted premium vs. actual claims to sanity-check the model at a portfolio level, not just per-row error.
+- **Feature importance for explainability**: Extracting and visualizing which features (Exposure, DrivAge, Density) actually drive claim probability — important in insurance, where models often need to be explainable to regulators/stakeholders, not just accurate.
+
+
 
 - **Python**: pandas, numpy, scikit-learn, matplotlib
 - **Database**: PostgreSQL (via SQLAlchemy)
@@ -55,6 +75,7 @@ Two Random Forest models form the pricing pipeline:
 ```
 ├── ClaimDatabase.sql        # SQL view joining frequency and severity claim tables
 ├── Claim_Prediciton.ipynb   # Full analysis and modeling notebook
+├── images/                  # Exported charts embedded in this README
 └── README.md
 ```
 
