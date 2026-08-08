@@ -25,15 +25,15 @@ This project models both components separately and combines them into a **pure p
 - Distribution of claim amounts
 - Claim frequency by vehicle brand (highest: **B12**)
 
-  ![Claim Frequency by Vehicle Brand](images/claim_freq_by_vehicle_brand.png)
+  ![Claim Frequency by Vehicle Brand](image/claim_freq_by_vehicle_brand.png)
 
 - Average claim severity by region (highest: **Rhône-Alpes**)
 
-  ![Average Claim Severity by Region](images/claim_severity_by_region.png)
+  ![Average Claim Severity by Region](image/claim_severity_by_region.png)
 
 - Claim frequency by region
 
-  ![Claim Frequency by Region](images/claim_frequency_by_region.png)
+  ![Claim Frequency by Region](image/claim_frequency_by_region.png)
 
 ## Modeling
 
@@ -52,7 +52,7 @@ Two Random Forest models form the pricing pipeline:
 - Predicted total premium compared against total actual claims, with an adjustment ratio applied to calibrate overall premium levels
 - Feature importance analysis identifies the top risk factors driving claim probability — **Exposure**, **DrivAge**, and **Density** rank highest
 
-  ![Top 10 Factors Influencing Claim Probability](images/feature_importance.png)
+  ![Top 10 Factors Influencing Claim Probability](image/feature_importance.png)
 
 ## What I Learned
 
